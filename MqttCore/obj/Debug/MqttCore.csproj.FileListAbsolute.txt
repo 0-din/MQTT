@@ -1,0 +1,7 @@
+C:\Users\shahab\source\repos\MQTT\MqttCore\obj\Debug\MqttCore.csprojAssemblyReference.cache
+C:\Users\shahab\source\repos\MQTT\MqttCore\obj\Debug\MqttCore.csproj.CoreCompileInputs.cache
+C:\Users\shahab\source\repos\MQTT\MqttCore\bin\Debug\MqttCore.dll
+C:\Users\shahab\source\repos\MQTT\MqttCore\bin\Debug\MqttCore.pdb
+C:\Users\shahab\source\repos\MQTT\MqttCore\obj\Debug\MqttCore.csproj.CopyComplete
+C:\Users\shahab\source\repos\MQTT\MqttCore\obj\Debug\MqttCore.dll
+C:\Users\shahab\source\repos\MQTT\MqttCore\obj\Debug\MqttCore.pdb
