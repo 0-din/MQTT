@@ -35,6 +35,12 @@ namespace MQTTCore.Broker
             set;
         }
 
+        public int Devices
+        {
+            get;
+            set;
+        }
+
         public Broker(string name, string ip, int port)
         {
             Name = name;
@@ -64,7 +70,7 @@ namespace MQTTCore.Broker
             return clients;
         }
 
-        public async Task<Dictionary<Publisher, string>> StartListeningAsync(CancellationToken cancellationToken)
+        public async Task<Dictionary<Publisher, string>> ListeningAsync(CancellationToken cancellationToken)
         {
             Dictionary<Publisher, string> messages = new Dictionary<Publisher, string>();
             List<Publisher> publishers = await GetDevicesAsync(cancellationToken);
@@ -81,36 +87,7 @@ namespace MQTTCore.Broker
         {
             MqttCore.Core.Tcp tcp = new MqttCore.Core.Tcp(publisher.IP, publisher.Port);
             tcp.StartListening();
-
-            while (true)
-            {
-                return await tcp.RecieveAsync(cancellationToken);
-            }
-
-            //IPAddress ip = Dns.GetHostEntry(publisher.IP).AddressList[0];
-            //TcpListener server = new TcpListener(ip, publisher.Port);
-            //TcpClient tcpc = default(TcpClient);
-
-            //try
-            //{
-            //    server.Start();
-            //}
-            //catch (Exception ex)
-            //{
-            //}
-
-            //while (true)
-            //{
-            //    tcpc = await server.AcceptTcpClientAsync();
-
-            //    byte[] recievedBuffer = new byte[1024];
-
-            //    NetworkStream stream = tcpc.GetStream();
-            //    stream.Read(recievedBuffer, 0, recievedBuffer.Length);
-            //    string msg = Encoding.ASCII.GetString(recievedBuffer);
-
-            //    return msg;
-            //}
+            return await tcp.RecieveAsync(cancellationToken);
         }
 
         public void Dispose()

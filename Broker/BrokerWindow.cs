@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace Broker
     {
         const string brokerName = "broker";
         MQTTCore.Broker.Broker broker;
+        CancellationToken cancellationToken = new CancellationToken();
 
         public BrokerWindow()
         {
@@ -30,19 +32,22 @@ namespace Broker
                                                 int.Parse(ConfigurationManager.AppSettings["port"]));
         }
 
-        private async void btnStart_Click(object sender, EventArgs e)
+        private void btnStart_Click(object sender, EventArgs e)
         {
-            
+            Task task = Task.Run((Action)GatherData, cancellationToken);
         }
 
-        private async void BrokerWindow_Load(object sender, EventArgs e)
+        private void BrokerWindow_Load(object sender, EventArgs e)
         {
-            CancellationToken cancellationToken = new CancellationToken();
-            var messages = await broker.StartListeningAsync(cancellationToken);
-            txtMessage.Text = messages.First().Value;
+        }
 
-
-        
+        private async void GatherData()
+        {
+            while (true)
+            {
+                var messages = await broker.ListeningAsync(cancellationToken);
+                txtMessage.Text = messages.First().Value;
+            }
         }
     }
 }
