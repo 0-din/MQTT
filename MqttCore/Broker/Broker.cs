@@ -20,7 +20,7 @@ namespace MQTTCore.Broker
             set;
         }
 
-        public Queue<Subscriber> Subscriber
+        public Queue<Subscriber> Subscribers
         {
             get;
             set;
@@ -34,26 +34,33 @@ namespace MQTTCore.Broker
         {
         }
 
-        public async Task SendDataAsync(CancellationToken cancellationToken)
+        public async Task SendAsync(CancellationToken cancellationToken)
         {
+            Subscriber sub = Subscribers.Dequeue();
+            await sub.Send("", cancellationToken);
         }
 
-        private async Task<string> Recieve(Publisher publisher, CancellationToken cancellationToken)
+        public async Task<string> RecieveAsync(Publisher publisher, CancellationToken cancellationToken)
         {
-            return "";
+            Publisher pub = Publishers.Dequeue();
+            return await pub.ListenAsync(cancellationToken);
         }
 
-        private void CreatePublishersQueue(params Publisher[] publishers)
+        public void CreatePublishersQueue(params Publisher[] publishers)
         {
             foreach (Publisher pub in publishers)
                 Publishers.Enqueue(pub);
         }
 
-        private void CreateSubscribersQueue(params Subscriber[] subscribers)
+        public void CreateSubscribersQueue(params Subscriber[] subscribers)
         {
             foreach (Subscriber sub in subscribers)
-                Subscriber.Enqueue(sub);
+                Subscribers.Enqueue(sub);
         }
 
+        private void AddSubscriberToQueue(Subscriber subscriber)
+        {
+
+        }
     }
 }

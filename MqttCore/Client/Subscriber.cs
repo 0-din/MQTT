@@ -19,6 +19,12 @@ namespace MQTTCore.Client
             set;
         }
 
+        public string Category
+        {
+            get;
+            set;
+        }
+
         public string IP
         {
             get;
