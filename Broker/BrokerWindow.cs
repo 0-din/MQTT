@@ -34,7 +34,7 @@ namespace Broker
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            Task task = Task.Run((Action)GatherData, cancellationToken);
+
         }
 
         private void BrokerWindow_Load(object sender, EventArgs e)
@@ -43,11 +43,11 @@ namespace Broker
 
         private async void GatherData()
         {
-            while (true)
-            {
-                var messages = await broker.ListeningAsync(cancellationToken);
-                txtMessage.Text = messages.First().Value;
-            }
+            //while (true)
+            //{
+            //    var messages = await broker.ListeningAsync(cancellationToken);
+            //    txtMessage.Text = messages.First().Value;
+            //}
         }
     }
 }

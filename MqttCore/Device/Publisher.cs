@@ -1,19 +1,25 @@
-﻿using System;
+﻿using MqttCore.Core;
+using Stimulsoft.Report.Dictionary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MQTTCore.Device
 {
     public class Publisher
     {
+        private MqttCore.Core.Tcp _tcp;
+
         public string Name
         {
             get;
             set;
-        }
+        }   
 
         public string IP
         {
@@ -32,30 +38,18 @@ namespace MQTTCore.Device
             Name = name;
             IP = ip;
             Port = port;
+
+            _tcp = new MqttCore.Core.Tcp(IP, Port);
         }
 
-        public async Task PublishDataAsync(string message)
+        public void Start()
         {
-            using (TcpClient client = new TcpClient(IP, Port))
-                try
-                {
-                    byte[] sendBuffer = Encoding.ASCII.GetBytes(message);
-                    int bytecount = sendBuffer.Length;
+            _tcp.StartListening();
+        }
 
-                    using (NetworkStream stream = client.GetStream())
-                        try
-                        {
-                            await stream.WriteAsync(sendBuffer, 0, sendBuffer.Length);
-                        }
-                        catch (Exception ex)
-                        {
-                            stream.Dispose();
-                        }
-                }
-                catch (Exception ex)
-                {
-                    client.Dispose();
-                }
+        public async Task<string> ListenAsync(CancellationToken cancellationToken)
+        {
+            return await _tcp.RecieveAsync(cancellationToken);
         }
     }
 }

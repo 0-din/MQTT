@@ -28,9 +28,8 @@ namespace Publisher
                                                 int.Parse(ConfigurationManager.AppSettings["port"]));
         }
 
-        private async void btnSend_Click(object sender, EventArgs e)
+        private void btnSend_Click(object sender, EventArgs e)
         {
-            await publisher.PublishDataAsync($"{this.Text}: {txtMessage.Text}");
         }
     }
 }

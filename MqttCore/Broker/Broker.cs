@@ -14,84 +14,46 @@ namespace MQTTCore.Broker
 {
     public class Broker
     {
-        private Socket _listenSoket;
-        private Socket _sendSocket;
-
-        public string Name
+        public Queue<Publisher> Publishers
         {
             get;
             set;
         }
 
-        public string IP
+        public Queue<Subscriber> Subscriber
         {
             get;
             set;
         }
 
-        public int Port
+        public Broker()
         {
-            get;
-            set;
         }
 
-        public int Devices
+        public void Start()
         {
-            get;
-            set;
-        }
-
-        public Broker(string name, string ip, int port)
-        {
-            Name = name;
-            IP = ip;
-            Port = port;
         }
 
         public async Task SendDataAsync(CancellationToken cancellationToken)
         {
-            List<IClient> clients = await GetClientsAsync(cancellationToken);
-            foreach (var c in clients)
-            {
-            }
         }
 
-        private async Task<List<Publisher>> GetDevicesAsync(CancellationToken cancellationToken)
+        private async Task<string> Recieve(Publisher publisher, CancellationToken cancellationToken)
         {
-            List<Publisher> publishers = new List<Publisher>();
-            publishers.Add(new Publisher("p1", "localhost", 8000));
-            return publishers;
+            return "";
         }
 
-        private async Task<List<IClient>> GetClientsAsync(CancellationToken cancellationToken)
+        private void CreatePublishersQueue(params Publisher[] publishers)
         {
-            List<IClient> clients = new List<IClient>();
-            clients.Add(new Subscriber("s2", "localhost", 8000));
-            return clients;
+            foreach (Publisher pub in publishers)
+                Publishers.Enqueue(pub);
         }
 
-        public async Task<Dictionary<Publisher, string>> ListeningAsync(CancellationToken cancellationToken)
+        private void CreateSubscribersQueue(params Subscriber[] subscribers)
         {
-            Dictionary<Publisher, string> messages = new Dictionary<Publisher, string>();
-            List<Publisher> publishers = await GetDevicesAsync(cancellationToken);
-
-            foreach (var p in publishers)
-            {
-                messages.Add(p, await ListenToPublisher(p, cancellationToken));
-            }
-
-            return messages;
+            foreach (Subscriber sub in subscribers)
+                Subscriber.Enqueue(sub);
         }
 
-        private async Task<string> ListenToPublisher(Publisher publisher, CancellationToken cancellationToken)
-        {
-            MqttCore.Core.Tcp tcp = new MqttCore.Core.Tcp(publisher.IP, publisher.Port);
-            tcp.StartListening();
-            return await tcp.RecieveAsync(cancellationToken);
-        }
-
-        public void Dispose()
-        {
-        }
     }
 }
