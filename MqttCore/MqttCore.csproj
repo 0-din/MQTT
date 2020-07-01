@@ -58,6 +58,7 @@
     <Compile Include="Client\Subscriber.cs" />
     <Compile Include="Core\CreateSocket.cs" />
     <Compile Include="Core\DevicesQueue.cs" />
+    <Compile Include="Core\LookUpQueue.cs" />
     <Compile Include="Core\Tcp.cs" />
     <Compile Include="Device\Publisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
