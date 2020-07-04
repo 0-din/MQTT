@@ -34,8 +34,18 @@ namespace MQTTCore.Broker
             SubscribersQ= new SubscribersQueue();
         }
 
-        public void Start()
+        public async void Start(CancellationToken cancellationToken)
         {
+            
+            
+            
+            while (true)
+            {
+
+
+
+
+            }
         }
 
         public async Task SendAsync(CancellationToken cancellationToken)
@@ -43,7 +53,7 @@ namespace MQTTCore.Broker
 
         }
 
-        public async Task<string> RecieveAsync(Publisher publisher, CancellationToken cancellationToken)
+        public async Task<string> RecieveAsync(CancellationToken cancellationToken)
         {
             return null;
         }
@@ -62,7 +72,6 @@ namespace MQTTCore.Broker
 
         private void AddSubscriberToQueue(Subscriber subscriber)
         {
-
         }
     }
 }
