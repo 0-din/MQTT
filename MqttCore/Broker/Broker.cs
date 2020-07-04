@@ -11,6 +11,7 @@ using MQTTCore.Device;
 using MQTTCore.Client;
 using MqttCore.Core;
 using System.Security.Cryptography.X509Certificates;
+using Stimulsoft.Report.Gauge;
 
 namespace MQTTCore.Broker
 {
@@ -36,16 +37,6 @@ namespace MQTTCore.Broker
 
         public async void Start(CancellationToken cancellationToken)
         {
-            
-            
-            
-            while (true)
-            {
-
-
-
-
-            }
         }
 
         public async Task SendAsync(CancellationToken cancellationToken)
@@ -56,6 +47,12 @@ namespace MQTTCore.Broker
         public async Task<string> RecieveAsync(CancellationToken cancellationToken)
         {
             return null;
+        }
+
+        public async Task ListenToDevices()
+        {
+            Publisher publisher = PublishersQ.Dequeue();
+            publisher.Start();
         }
 
         public void CreatePublishersQueue(params Publisher[] publishers)
