@@ -15,13 +15,13 @@ namespace MQTTCore.Broker
 {
     public class Broker
     {
-        public DevicesQueue PublishersQ
+        public DevicesQueue Publishers
         {
             get;
             set;
         }
 
-        public SubscribersQueue SubscribersQ
+        public SubscribersQueue Subscribers
         {
             get;
             set;
@@ -42,14 +42,10 @@ namespace MQTTCore.Broker
 
         public void CreatePublishersQueue(params Publisher[] publishers)
         {
-            for (int i = 0; i < publishers.Length; i++)
-                PublishersQ.Enqueue(publishers[i]);
         }
 
         public void CreateSubscribersQueue(params Subscriber[] subscribers)
         {
-            for (int i = 0; i < subscribers.Length; i++)
-                SubscribersQ.Dequeue(subscribers[i]);
         }
 
         private void AddSubscriberToQueue(Subscriber subscriber)
