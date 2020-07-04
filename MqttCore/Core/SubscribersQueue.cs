@@ -9,7 +9,7 @@ namespace MqttCore.Core
 {
     public class SubscribersQueue
     {
-        Dictionary<string, Queue<Subscriber>> _queue;
+        private static Dictionary<string, Queue<Subscriber>> _queue;
 
         public Dictionary<string, Queue<Subscriber>> Queue
         {
@@ -45,16 +45,15 @@ namespace MqttCore.Core
         {
             if (this[category] == null)
                 this[category] = new Queue<Subscriber>();
-
             this[category].Enqueue(subscriber);
         }
 
-        public Subscriber Dequeue(Subscriber Dequeue, string category)
+        public Subscriber Dequeue(Subscriber subscriber, string category)
         {
             return this.Queue[category].Dequeue();
         }
 
-        public Subscriber Peek(Subscriber Dequeue, string category)
+        public Subscriber Peek(Subscriber subscriber, string category)
         {
             return this.Queue[category].Peek();
         }

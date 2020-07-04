@@ -9,18 +9,19 @@ using System.Net.Sockets;
 using System.Configuration;
 using MQTTCore.Device;
 using MQTTCore.Client;
+using MqttCore.Core;
 
 namespace MQTTCore.Broker
 {
     public class Broker
     {
-        public Queue<Publisher> Publishers
+        public DevicesQueue PublishersQ
         {
             get;
             set;
         }
 
-        public Queue<Subscriber> Subscribers
+        public SubscribersQueue SubscribersQ
         {
             get;
             set;
@@ -30,32 +31,25 @@ namespace MQTTCore.Broker
         {
         }
 
-        public void Start()
-        {
-        }
-
         public async Task SendAsync(CancellationToken cancellationToken)
         {
-            Subscriber sub = Subscribers.Dequeue();
-            await sub.Send("", cancellationToken);
         }
 
         public async Task<string> RecieveAsync(Publisher publisher, CancellationToken cancellationToken)
         {
-            Publisher pub = Publishers.Dequeue();
-            return await pub.ListenAsync(cancellationToken);
+            return null;
         }
 
         public void CreatePublishersQueue(params Publisher[] publishers)
         {
-            foreach (Publisher pub in publishers)
-                Publishers.Enqueue(pub);
+            for (int i = 0; i < publishers.Length; i++)
+                PublishersQ.Enqueue(publishers[i]);
         }
 
         public void CreateSubscribersQueue(params Subscriber[] subscribers)
         {
-            foreach (Subscriber sub in subscribers)
-                Subscribers.Enqueue(sub);
+            for (int i = 0; i < subscribers.Length; i++)
+                SubscribersQ.Dequeue(subscribers[i]);
         }
 
         private void AddSubscriberToQueue(Subscriber subscriber)
