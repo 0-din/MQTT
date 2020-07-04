@@ -41,11 +41,11 @@ namespace MqttCore.Core
         {
         }
 
-        public void Enqueue(Subscriber subscriber, string category)
+        public void Enqueue(Subscriber subscriber)
         {
-            if (this[category] == null)
-                this[category] = new Queue<Subscriber>();
-            this[category].Enqueue(subscriber);
+            if (!this.Queue.ContainsKey(subscriber.Category) || this[subscriber.Category] == null)
+                this[subscriber.Category] = new Queue<Subscriber>();
+            this[subscriber.Category].Enqueue(subscriber);
         }
 
         public Subscriber Dequeue(Subscriber subscriber, string category)

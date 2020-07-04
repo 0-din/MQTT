@@ -10,18 +10,19 @@ using System.Configuration;
 using MQTTCore.Device;
 using MQTTCore.Client;
 using MqttCore.Core;
+using System.Security.Cryptography.X509Certificates;
 
 namespace MQTTCore.Broker
 {
     public class Broker
     {
-        public DevicesQueue Publishers
+        public DevicesQueue PublishersQ
         {
             get;
             set;
         }
 
-        public SubscribersQueue Subscribers
+        public SubscribersQueue SubscribersQ
         {
             get;
             set;
@@ -29,10 +30,17 @@ namespace MQTTCore.Broker
 
         public Broker()
         {
+            PublishersQ = new DevicesQueue();
+            SubscribersQ= new SubscribersQueue();
+        }
+
+        public void Start()
+        {
         }
 
         public async Task SendAsync(CancellationToken cancellationToken)
         {
+
         }
 
         public async Task<string> RecieveAsync(Publisher publisher, CancellationToken cancellationToken)
@@ -42,10 +50,14 @@ namespace MQTTCore.Broker
 
         public void CreatePublishersQueue(params Publisher[] publishers)
         {
+            for (int i = 0; i < publishers.Length; i++)
+                PublishersQ.Enqueue(publishers[i]);
         }
 
         public void CreateSubscribersQueue(params Subscriber[] subscribers)
         {
+            for (int i = 0; i < subscribers.Length; i++)
+                SubscribersQ.Enqueue(subscribers[i]);
         }
 
         private void AddSubscriberToQueue(Subscriber subscriber)

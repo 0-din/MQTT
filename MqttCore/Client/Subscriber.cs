@@ -37,11 +37,12 @@ namespace MQTTCore.Client
             set;
         }
 
-        public Subscriber(string name, string ip, int port)
+        public Subscriber(string name, string ip, int port, string category)
         {
             Name = name;
             IP = ip;
             Port = port;
+            Category = category;
         }
 
         public async Task Connect(CancellationToken cancellationToken)

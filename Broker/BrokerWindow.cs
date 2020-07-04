@@ -28,18 +28,22 @@ namespace Broker
 
             broker = new MQTTCore.Broker.Broker();
 
-            ConfigurationManager.AppSettings["Publishers"].ToString().Split(';').Select(p => new MQTTCore.Device.Publisher(p.Split(':')[0], p.Split(':')[0], int.Parse(p.Split(':')[0])));
+            MQTTCore.Device.Publisher[] publishers = ConfigurationManager.AppSettings["Publishers"].ToString().Split(';').Select(p => new MQTTCore.Device.Publisher(p.Split(':')[0], p.Split(':')[1], int.Parse(p.Split(':')[2]))).ToArray();
 
-            broker.CreatePublishersQueue()
+            MQTTCore.Client.Subscriber[] subscribers =
+                ConfigurationManager.AppSettings["Subscribers"].ToString().Split(';')
+                .Select(p => new MQTTCore.Client.Subscriber(p.Split(':')[0],
+                                                            p.Split(':')[1],
+                                                            int.Parse(p.Split(':')[2]),
+                                                            p.Split(':')[3])).ToArray();
 
-            //brokerName,
-            //ConfigurationManager.AppSettings["ip"],
-            //int.Parse(ConfigurationManager.AppSettings["port"]));
+            broker.CreatePublishersQueue(publishers);
+            broker.CreateSubscribersQueue(subscribers);
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void BrokerWindow_Load(object sender, EventArgs e)

@@ -38,7 +38,10 @@ namespace MQTTCore.Device
             Name = name;
             IP = ip;
             Port = port;
+        }
 
+        public void BuildConnection()
+        {
             _tcp = new MqttCore.Core.Tcp(IP, Port);
         }
 
