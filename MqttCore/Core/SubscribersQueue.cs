@@ -9,7 +9,7 @@ namespace MqttCore.Core
 {
     public class SubscribersQueue
     {
-        Dictionary<string, Queue<Subscriber>> _queue;
+        private static Dictionary<string, Queue<Subscriber>> _queue;
 
         public Dictionary<string, Queue<Subscriber>> Queue
         {
