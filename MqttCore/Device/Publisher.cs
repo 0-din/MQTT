@@ -33,11 +33,18 @@ namespace MQTTCore.Device
             set;
         }
 
+        public string Category
+        {
+            get;
+            set;
+        }
+
         public Publisher(string name, string ip, int port)
         {
             Name = name;
             IP = ip;
             Port = port;
+
         }
 
         public void BuildConnection()
@@ -50,7 +57,7 @@ namespace MQTTCore.Device
             _tcp.StartListening();
         }
 
-        public async Task<string> ListenAsync(CancellationToken cancellationToken)
+        public async Task<string> RecieveAsync(CancellationToken cancellationToken)
         {
             return await _tcp.RecieveAsync(cancellationToken);
         }

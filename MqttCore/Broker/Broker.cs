@@ -39,20 +39,17 @@ namespace MQTTCore.Broker
         {
         }
 
-        public async Task SendAsync(CancellationToken cancellationToken)
+        public async Task RecieveData(CancellationToken cancellationToken)
         {
+            for (int i = 0; i < PublishersQ.Count; i++)
+            {
+                Publisher publisher = PublishersQ.Dequeue();
 
-        }
+                string message = await publisher.RecieveAsync(cancellationToken);
 
-        public async Task<string> RecieveAsync(CancellationToken cancellationToken)
-        {
-            return null;
-        }
 
-        public async Task ListenToDevices()
-        {
-            Publisher publisher = PublishersQ.Dequeue();
-            publisher.Start();
+                PublishersQ.Enqueue(publisher);
+            }
         }
 
         public void CreatePublishersQueue(params Publisher[] publishers)
@@ -65,10 +62,6 @@ namespace MQTTCore.Broker
         {
             for (int i = 0; i < subscribers.Length; i++)
                 SubscribersQ.Enqueue(subscribers[i]);
-        }
-
-        private void AddSubscriberToQueue(Subscriber subscriber)
-        {
         }
     }
 }

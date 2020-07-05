@@ -12,6 +12,14 @@ namespace MqttCore.Core
     {
         private static Queue<MQTTCore.Device.Publisher> _devices;
 
+        public int Count
+        {
+            get 
+            {
+                return _devices.Count;
+            }
+        }
+
         public DevicesQueue()
         {
             _devices = new Queue<MQTTCore.Device.Publisher>();
