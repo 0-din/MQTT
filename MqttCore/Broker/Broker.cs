@@ -12,6 +12,7 @@ using MQTTCore.Client;
 using MqttCore.Core;
 using System.Security.Cryptography.X509Certificates;
 using Stimulsoft.Report.Gauge;
+using Stimulsoft.Base.Drawing;
 
 namespace MQTTCore.Broker
 {
@@ -39,15 +40,33 @@ namespace MQTTCore.Broker
         {
         }
 
-        public async Task RecieveData(CancellationToken cancellationToken)
+        public async Task RecieveDataAsync(CancellationToken cancellationToken)
         {
             for (int i = 0; i < Publishers.Count; i++)
             {
                 Publisher publisher = Publishers[i];
                 string message = await publisher.RecieveAsync(cancellationToken);
 
-                var subs = Subscribers[publisher.Name];
+                List<Subscriber> listSubscriber = Subscribers[publisher.Name];
+                if (listSubscriber != null || listSubscriber.Count > 0)
+                {
+                    foreach (Subscriber s in listSubscriber)
+                    {
+                        await SendDataAsync(message, publisher, cancellationToken);
+                        await LogDataAsync(message, publisher, cancellationToken);
+                    }
+                }
             }
+        }
+
+        public async Task SendDataAsync(string message, Publisher publisher, CancellationToken cancellationToken)
+        {
+
+        }
+
+        private async Task LogDataAsync(string message, Publisher publisher, CancellationToken cancellationToken)
+        {
+            Log log = new Log();
         }
 
         public void CreatePublishersQueue(params Publisher[] publishers)
