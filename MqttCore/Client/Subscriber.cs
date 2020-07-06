@@ -56,5 +56,15 @@ namespace MQTTCore.Client
             NetworkStream stream = _client.GetStream();
             await stream.WriteAsync(buffer, 0, buffer.Length, cancellationToken);
         }
+
+        public static bool operator ==(Subscriber subscriber1, Subscriber subscriber2)
+        {
+            return (subscriber1.IP == subscriber2.IP);
+        }
+
+        public static bool operator !=(Subscriber subscriber1, Subscriber subscriber2)
+        {
+            return !(subscriber1.IP == subscriber2.IP);
+        }
     }
 }

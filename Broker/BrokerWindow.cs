@@ -41,9 +41,12 @@ namespace Broker
             broker.CreateSubscribersQueue(subscribers);
         }
 
-        private void btnStart_Click(object sender, EventArgs e)
+        private async void btnStart_Click(object sender, EventArgs e)
         {
-            
+            while (true)
+            {
+                await broker.RecieveData(cancellationToken);
+            }
         }
 
         private void BrokerWindow_Load(object sender, EventArgs e)

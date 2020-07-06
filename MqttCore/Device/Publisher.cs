@@ -33,12 +33,6 @@ namespace MQTTCore.Device
             set;
         }
 
-        public string Category
-        {
-            get;
-            set;
-        }
-
         public Publisher(string name, string ip, int port)
         {
             Name = name;
@@ -60,6 +54,16 @@ namespace MQTTCore.Device
         public async Task<string> RecieveAsync(CancellationToken cancellationToken)
         {
             return await _tcp.RecieveAsync(cancellationToken);
+        }
+
+        public static bool operator ==(Publisher publisher1, Publisher publisher2)
+        {
+            return (publisher1.IP == publisher2.IP);
+        }
+
+        public static bool operator !=(Publisher publisher1, Publisher publisher2)
+        {
+            return !(publisher1.IP == publisher2.IP);
         }
     }
 }
