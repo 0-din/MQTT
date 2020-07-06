@@ -45,21 +45,12 @@ namespace Broker
         {
             while (true)
             {
-                await broker.RecieveData(cancellationToken);
+                await broker.RecieveDataAsync(cancellationToken);
             }
         }
 
         private void BrokerWindow_Load(object sender, EventArgs e)
         {
-        }
-
-        private async void GatherData()
-        {
-            //while (true)
-            //{
-            //    var messages = await broker.ListeningAsync(cancellationToken);
-            //    txtMessage.Text = messages.First().Value;
-            //}
         }
     }
 }

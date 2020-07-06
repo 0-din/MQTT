@@ -46,27 +46,26 @@ namespace MQTTCore.Broker
             {
                 Publisher publisher = Publishers[i];
                 string message = await publisher.RecieveAsync(cancellationToken);
-
-                List<Subscriber> listSubscriber = Subscribers[publisher.Name];
-                if (listSubscriber != null || listSubscriber.Count > 0)
-                {
-                    foreach (Subscriber s in listSubscriber)
-                    {
-                        await SendDataAsync(message, publisher, cancellationToken);
-                        await LogDataAsync(message, publisher, cancellationToken);
-                    }
-                }
             }
         }
 
         public async Task SendDataAsync(string message, Publisher publisher, CancellationToken cancellationToken)
         {
-
+            List<Subscriber> listSubscriber = Subscribers[publisher.Name];
+            if (listSubscriber != null || listSubscriber.Count > 0)
+            {
+                foreach (Subscriber s in listSubscriber)
+                {
+                    await SendDataAsync(message, publisher, cancellationToken);
+                    await LogDataAsync(message, publisher, cancellationToken);
+                }
+            }
         }
 
         private async Task LogDataAsync(string message, Publisher publisher, CancellationToken cancellationToken)
         {
             Log log = new Log();
+
         }
 
         public void CreatePublishersQueue(params Publisher[] publishers)

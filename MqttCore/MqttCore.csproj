@@ -57,6 +57,7 @@
     <Compile Include="Broker\Broker.cs" />
     <Compile Include="Client\Subscriber.cs" />
     <Compile Include="Core\DevicesList.cs" />
+    <Compile Include="Core\Log.cs" />
     <Compile Include="Core\SubscribersList.cs" />
     <Compile Include="Core\Tcp.cs" />
     <Compile Include="Device\Publisher.cs" />
