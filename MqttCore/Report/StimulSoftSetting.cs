@@ -58,8 +58,5 @@ namespace MqttCore.Report
                 return _lstReports;
             }
         }
-
-
-
     }
 }

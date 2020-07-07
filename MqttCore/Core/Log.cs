@@ -31,18 +31,12 @@ namespace MqttCore.Core
 
         private string FileName
         {
-            get
-            {
-                return $"{Publisher.Name}_{DateTime.Now.ToString().Replace("/", "").Replace(":", "")}.txt";
-            }
+            get => $"{Publisher.Name}_{Publisher.IP}.txt";
         }
 
         private DateTime LogTime
         {
-            get
-            {
-                return DateTime.Now;
-            }
+            get => DateTime.Now;
         }
 
         public Log(string path, Publisher publisher, string message)
@@ -72,29 +66,17 @@ namespace MqttCore.Core
                 }
         }
 
-        public static FileInfo[] GetLogs(DateTime from, DateTime to, string path)
+        public static IEnumerable<string> GetLogs(DateTime from, DateTime to, string path)
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
 
-            foreach (string file in Directory.GetFiles(path))
-            {
-                if (File.Exists(file))
-                {
-                    using (StreamReader reader = new StreamReader(file))
-                        try
-                        {
-                            string content = reader.ReadToEnd();
-                            result.Add("", content);
-                        }
-                        catch (Exception ex)
-                        {
-                            reader.Dispose();
-                        }
-                }
-            }
+            string[] files = Directory.GetFiles(path)
+                                        .Where(x => File.Exists(x))
+                                        .Where(x => File.GetCreationTime(x) >= from && File.GetCreationTime(x) <= to).ToArray();
 
-            return null;
+            foreach (string file in files)
+                using (StreamReader reader = new StreamReader(file))
+                    yield return reader.ReadToEnd();
         }
-
     }
 }
