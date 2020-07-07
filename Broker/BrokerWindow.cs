@@ -28,18 +28,20 @@ namespace Broker
 
             broker = new MQTTCore.Broker.Broker();
 
+            broker.LogPath = ConfigurationManager.AppSettings["logPath"];
+
             MQTTCore.Device.Publisher[] publishers = 
                 ConfigurationManager.AppSettings["Publishers"].ToString().Split(';').Select(p => new MQTTCore.Device.Publisher(p.Split(':')[0], p.Split(':')[1], int.Parse(p.Split(':')[2]))).ToArray();
 
-            MQTTCore.Client.Subscriber[] subscribers =
-                ConfigurationManager.AppSettings["Subscribers"].ToString().Split(';')
-                .Select(p => new MQTTCore.Client.Subscriber(p.Split(':')[0],
-                                                            p.Split(':')[1],
-                                                            int.Parse(p.Split(':')[2]),
-                                                            p.Split(':')[3])).ToArray();
+            //MQTTCore.Client.Subscriber[] subscribers =
+            //    ConfigurationManager.AppSettings["Subscribers"].ToString().Split(';')
+            //    .Select(p => new MQTTCore.Client.Subscriber(p.Split(':')[0],
+            //                                                p.Split(':')[1],
+            //                                                int.Parse(p.Split(':')[2]),
+            //                                                p.Split(':')[3])).ToArray();
 
             broker.CreatePublishersQueue(publishers);
-            broker.CreateSubscribersQueue(subscribers);
+            //broker.CreateSubscribersQueue(subscribers);
         }
 
         private async void btnStart_Click(object sender, EventArgs e)
@@ -52,6 +54,17 @@ namespace Broker
 
         private void BrokerWindow_Load(object sender, EventArgs e)
         {
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string lgPath = ConfigurationManager.AppSettings["logPath"];
+
+            if (!string.IsNullOrEmpty(lgPath))
+            {
+                MqttCore.Core.Log.GetLogs(dtFrom.Value, dtTo.Value, lgPath);
+
+            }
         }
     }
 }

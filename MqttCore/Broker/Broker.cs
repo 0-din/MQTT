@@ -30,6 +30,12 @@ namespace MQTTCore.Broker
             set;
         }
 
+        public string LogPath
+        {
+            get;
+            set;
+        }
+
         public Broker()
         {
             Publishers = new DevicesList();
@@ -64,7 +70,7 @@ namespace MQTTCore.Broker
 
         private async Task LogDataAsync(string message, Publisher publisher, CancellationToken cancellationToken)
         {
-            Log log = new Log(@"c:\brokerlog\", publisher, message);
+            Log log = new Log(LogPath, publisher, message);
             await log.SaveAsync();
         }
 

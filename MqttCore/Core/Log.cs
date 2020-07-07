@@ -33,8 +33,7 @@ namespace MqttCore.Core
         {
             get
             {
-                //c:\\brokerlog\\p1_7 / 7 / 2020 6:15:47 AM.txt
-                return $"{Publisher.Name}_{DateTime.Now.ToString().Replace("/","").Replace(":", "")}.txt";
+                return $"{Publisher.Name}_{DateTime.Now.ToString().Replace("/", "").Replace(":", "")}.txt";
             }
         }
 
@@ -51,6 +50,13 @@ namespace MqttCore.Core
             Publisher = publisher;
             Message = message;
             this.Path = System.IO.Path.Combine(path, FileName);
+            ValidatePath();
+        }
+
+        public void ValidatePath()
+        {
+            if (!Directory.Exists(Path))
+                Directory.CreateDirectory(Path);
         }
 
         public async Task SaveAsync()
@@ -64,6 +70,31 @@ namespace MqttCore.Core
                 {
                     throw;
                 }
-        }   
+        }
+
+        public static FileInfo[] GetLogs(DateTime from, DateTime to, string path)
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+
+            foreach (string file in Directory.GetFiles(path))
+            {
+                if (File.Exists(file))
+                {
+                    using (StreamReader reader = new StreamReader(file))
+                        try
+                        {
+                            string content = reader.ReadToEnd();
+                            result.Add("", content);
+                        }
+                        catch (Exception ex)
+                        {
+                            reader.Dispose();
+                        }
+                }
+            }
+
+            return null;
+        }
+
     }
 }
