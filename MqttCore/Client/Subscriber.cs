@@ -50,7 +50,7 @@ namespace MQTTCore.Client
             await _client.ConnectAsync(IP, Port);
         }
 
-        public async Task Send(string message, CancellationToken cancellationToken)
+        public async Task SendAsync(string message, CancellationToken cancellationToken)
         {
             byte[] buffer = Encoding.UTF8.GetBytes(message);
             NetworkStream stream = _client.GetStream();

@@ -28,7 +28,8 @@ namespace Broker
 
             broker = new MQTTCore.Broker.Broker();
 
-            MQTTCore.Device.Publisher[] publishers = ConfigurationManager.AppSettings["Publishers"].ToString().Split(';').Select(p => new MQTTCore.Device.Publisher(p.Split(':')[0], p.Split(':')[1], int.Parse(p.Split(':')[2]))).ToArray();
+            MQTTCore.Device.Publisher[] publishers = 
+                ConfigurationManager.AppSettings["Publishers"].ToString().Split(';').Select(p => new MQTTCore.Device.Publisher(p.Split(':')[0], p.Split(':')[1], int.Parse(p.Split(':')[2]))).ToArray();
 
             MQTTCore.Client.Subscriber[] subscribers =
                 ConfigurationManager.AppSettings["Subscribers"].ToString().Split(';')

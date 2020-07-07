@@ -15,6 +15,20 @@ namespace MQTTCore.Device
     {
         private MqttCore.Core.Tcp _tcp;
 
+        private MqttCore.Core.Tcp TCP
+        {
+            get
+            {
+                if (_tcp == null)
+                    BuildConnection();
+                return _tcp;
+            }
+            set
+            {
+                _tcp = value;
+            }
+        }
+
         public string Name
         {
             get;
@@ -38,22 +52,22 @@ namespace MQTTCore.Device
             Name = name;
             IP = ip;
             Port = port;
-
         }
 
         public void BuildConnection()
         {
             _tcp = new MqttCore.Core.Tcp(IP, Port);
+            _tcp.BuildConnectionToRecieve();
         }
 
         public void Start()
         {
-            _tcp.StartListening();
+            TCP.StartListening();
         }
 
         public async Task<string> RecieveAsync(CancellationToken cancellationToken)
         {
-            return await _tcp.RecieveAsync(cancellationToken);
+            return await TCP.RecieveAsync(cancellationToken);
         }
 
         public static bool operator ==(Publisher publisher1, Publisher publisher2)

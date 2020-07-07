@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MqttCore.Core
 {
-    public class Log : IDisposable
+    public class Log
     {
         public string Message
         {
@@ -29,6 +29,15 @@ namespace MqttCore.Core
             set;
         }
 
+        private string FileName
+        {
+            get
+            {
+                //c:\\brokerlog\\p1_7 / 7 / 2020 6:15:47 AM.txt
+                return $"{Publisher.Name}_{DateTime.Now.ToString().Replace("/","").Replace(":", "")}.txt";
+            }
+        }
+
         private DateTime LogTime
         {
             get
@@ -37,18 +46,24 @@ namespace MqttCore.Core
             }
         }
 
-        public Log(string path)
+        public Log(string path, Publisher publisher, string message)
         {
-            this.Path = System.IO.Path.Combine(path);
+            Publisher = publisher;
+            Message = message;
+            this.Path = System.IO.Path.Combine(path, FileName);
         }
 
         public async Task SaveAsync()
         {
-            
-        }
-
-        public void Dispose()
-        {
-        }
+            using (StreamWriter sw = new StreamWriter(Path))
+                try
+                {
+                    await sw.WriteAsync(Message);
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+        }   
     }
 }

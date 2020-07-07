@@ -12,3 +12,10 @@ C:\GitHub\MQTT\MqttCore\obj\Debug\MqttCore.csproj.CoreCompileInputs.cache
 C:\GitHub\MQTT\MqttCore\obj\Debug\MqttCore.csproj.CopyComplete
 C:\GitHub\MQTT\MqttCore\obj\Debug\MqttCore.dll
 C:\GitHub\MQTT\MqttCore\obj\Debug\MqttCore.pdb
+E:\Source\MQTT\MqttCore\bin\Debug\MqttCore.dll
+E:\Source\MQTT\MqttCore\bin\Debug\MqttCore.pdb
+E:\Source\MQTT\MqttCore\obj\Debug\MqttCore.csprojAssemblyReference.cache
+E:\Source\MQTT\MqttCore\obj\Debug\MqttCore.csproj.CoreCompileInputs.cache
+E:\Source\MQTT\MqttCore\obj\Debug\MqttCore.csproj.CopyComplete
+E:\Source\MQTT\MqttCore\obj\Debug\MqttCore.dll
+E:\Source\MQTT\MqttCore\obj\Debug\MqttCore.pdb

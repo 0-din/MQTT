@@ -46,7 +46,15 @@ namespace MqttCore.Core
             Port = port;
             IP = ip;
             IPAddress = Dns.GetHostEntry(ip).AddressList[0];
-            Server = new TcpListener(IPAddress, port);
+        }
+
+        public void BuildConnectionToRecieve()
+        {
+            Server = new TcpListener(IPAddress, Port);
+        }
+
+        public void BuildConnectionToSend()
+        {
             Client = new TcpClient(IP, Port);
         }
 
@@ -69,9 +77,10 @@ namespace MqttCore.Core
             tcpc = await Server.AcceptTcpClientAsync();
 
             byte[] recievedBuffer = new byte[1024];
-            
             NetworkStream stream = tcpc.GetStream();
-            stream.Read(recievedBuffer, 0, recievedBuffer.Length);
+            
+            await stream.ReadAsync(recievedBuffer, 0, recievedBuffer.Length);
+            
             string msg = Encoding.ASCII.GetString(recievedBuffer);
 
             return msg;
