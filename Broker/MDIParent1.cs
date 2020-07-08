@@ -100,5 +100,21 @@ namespace Broker
                 childForm.Close();
             }
         }
+
+        private void PublisherToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form childForm = new Publisher.Form1();
+            childForm.MdiParent = this;
+            childForm.Text = "Publisher " + childFormNumber++;
+            childForm.Show();
+        }
+
+        private void BrokerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BrokerWindow childForm = new BrokerWindow();
+            childForm.MdiParent = this;
+            childForm.Text = childFormNumber.ToString();
+            childForm.Show();
+        }
     }
 }

@@ -19,6 +19,10 @@ using Stimulsoft.Report.Components;
 using Stimulsoft.Report.Components.Table;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using MqttCore.Core;
+using MqttCore.Report.Type;
+using System.CodeDom;
+using System.IO;
 
 namespace Broker
 {
@@ -43,6 +47,7 @@ namespace Broker
                 int port = int.Parse(p.Split(':')[2]);
                 publishers.Add(new MQTTCore.Device.Publisher(name, ip, port));
             }
+            broker.CreatePublishersQueue(publishers.ToArray());
 
 
             //MQTTCore.Device.Publisher[] publishers =
@@ -58,9 +63,28 @@ namespace Broker
 
         private async void btnStart_Click(object sender, EventArgs e)
         {
-            while (true)
+            CancellationTokenSource source = new CancellationTokenSource();
+
+            if (btnStart.Tag == null || int.Parse(btnStart.Tag.ToString()) == 0)
             {
-                CancellationToken cancellationToken = new CancellationToken();
+                btnStart.Tag = 1;   
+                btnStart.Text = "Recieve cData";
+                txtMessage.Text = "Start recieving data..." + Environment.NewLine;
+                await Run(source.Token);
+            }
+            else
+            {
+                btnStart.Tag = 0;
+                btnStart.Text = "Stop recieve Data";
+                txtMessage.Text = "Stop recieve Data." + Environment.NewLine;
+                source.Cancel();
+            }
+        }
+
+        private async Task Run(CancellationToken cancellationToken)
+        {
+            while (!cancellationToken.IsCancellationRequested)
+            {
                 await broker.RecieveDataAsync(cancellationToken);
             }
         }
@@ -71,19 +95,36 @@ namespace Broker
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            Dictionary<string, float> data = new Dictionary<string, float>();
+            Dictionary<string, object> businessObjects = new Dictionary<string, object>();
+            List<Temprature> tmps = new List<Temprature>();
 
             foreach (string lg in MqttCore.Core.Log.GetLogs(dtFrom.Value, dtTo.Value, logPath))
             {
                 JObject obj = ParseJson(lg);
                 if (obj != null)
                 {
-                    
+                    tmps.Add(new Temprature(obj));
                 }
+            }
+
+            businessObjects.Add("Data", tmps);
+            MemoryStream ms = CreateChart(businessObjects);
+            imgChart.Image = Image.FromStream(ms);
+        }
+
+        private MemoryStream CreateChart(Dictionary<string, object> businessObjects)
+        {
+            using (StimulsoftGenerator report = new StimulsoftGenerator("Broker"))
+            {
+                report.LoadReport();
+                report.Compile();
+                report.AddBusinussObjects(businessObjects);
+                report.Render();
+                return report.ExportDocument(StiExportFormat.ImageJpeg);
             }
         }
 
-        private static JObject ParseJson(string json)
+        private JObject ParseJson(string json)
         {
             JObject jobj = null;
             try
@@ -92,24 +133,10 @@ namespace Broker
             }
             catch (Exception ex)
             {
-                throw ex;
+                Log.LogError(ex.Message, logPath);
             }
 
             return jobj;
-        }
-
-        private void GetReport()
-        {
-            using (StimulsoftGenerator report = new StimulsoftGenerator("ReportAccounting"))
-            {
-                report.LoadReport();
-                //report.AddBusinussObjects(StiOfficialInvoiceObjects());
-                report.Compile();
-                //report.AddVariables(AddVariables());
-                report.Render();
-                report.ExportDocument(StiExportFormat.Pdf);
-                //PDFHelper.WritePdfOnPage(report.ExportDocument(StiExportFormat.Pdf), HttpContext.Current.Response, fileName: $"financial-{_view.InvoiceNumber}", contentDisposition: "attachment");
-            }
         }
     }
 }

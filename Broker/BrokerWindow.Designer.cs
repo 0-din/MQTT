@@ -39,12 +39,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dtFrom = new System.Windows.Forms.DateTimePicker();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.imgChart = new System.Windows.Forms.PictureBox();
             this.txtMessage = new System.Windows.Forms.TextBox();
             this.btnStart = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgChart)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -141,7 +141,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.pictureBox1);
+            this.groupBox2.Controls.Add(this.imgChart);
             this.groupBox2.Controls.Add(this.txtMessage);
             this.groupBox2.Location = new System.Drawing.Point(270, 12);
             this.groupBox2.Name = "groupBox2";
@@ -150,15 +150,14 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Data";
             // 
-            // pictureBox1
+            // imgChart
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox1.Location = new System.Drawing.Point(6, 19);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(661, 456);
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
+            this.imgChart.Location = new System.Drawing.Point(6, 19);
+            this.imgChart.Name = "imgChart";
+            this.imgChart.Size = new System.Drawing.Size(661, 456);
+            this.imgChart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.imgChart.TabIndex = 3;
+            this.imgChart.TabStop = false;
             // 
             // txtMessage
             // 
@@ -172,8 +171,6 @@
             // 
             // btnStart
             // 
-            this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnStart.Location = new System.Drawing.Point(12, 12);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(252, 61);
@@ -197,7 +194,7 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgChart)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -206,7 +203,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox txtMessage;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox imgChart;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.TextBox txtIP;
         private System.Windows.Forms.Label label4;

@@ -42,6 +42,27 @@ namespace MQTTCore.Broker
             Subscribers = new SubscribersList();
         }
 
+        //public async Task RecieveDataAsync(CancellationToken cancellationToken)
+        //{
+        //    List<Task<string>> tasks = new List<Task<string>>();
+
+        //    for (int i = 0; i < Publishers.Count; i++)
+        //    {
+        //        tasks.Add(RunPublisher(Publishers[i], cancellationToken));
+        //    }
+
+        //    Task.WaitAll(tasks.ToArray());
+        //}
+
+        //private async Task<string> RunPublisher(Publisher publisher, CancellationToken cancellationToken)
+        //{
+        //    publisher.Start();
+        //    string message = await publisher.RecieveAsync(cancellationToken);
+        //    await LogDataAsync(message, publisher, cancellationToken);
+        //    //await SendDataAsync(message, publisher, cancellationToken);
+        //    return message;
+        //}
+
         public async Task RecieveDataAsync(CancellationToken cancellationToken)
         {
             for (int i = 0; i < Publishers.Count; i++)

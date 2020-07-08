@@ -19,3 +19,5 @@ E:\Source\MQTT\MqttCore\obj\Debug\MqttCore.csproj.CoreCompileInputs.cache
 E:\Source\MQTT\MqttCore\obj\Debug\MqttCore.csproj.CopyComplete
 E:\Source\MQTT\MqttCore\obj\Debug\MqttCore.dll
 E:\Source\MQTT\MqttCore\obj\Debug\MqttCore.pdb
+C:\GitHub\MQTT\MqttCore\bin\Debug\Newtonsoft.Json.dll
+C:\GitHub\MQTT\MqttCore\bin\Debug\Newtonsoft.Json.xml

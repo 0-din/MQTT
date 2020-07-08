@@ -31,7 +31,7 @@ namespace MqttCore.Core
 
         private string FileName
         {
-            get => $"{Publisher.Name}_{Publisher.IP}.txt";
+            get => $"{Publisher.Name}_{DateTime.Now.ToString().Replace("/","-").Replace(" ", "_")}.txt";
         }
 
         private DateTime LogTime
@@ -45,6 +45,10 @@ namespace MqttCore.Core
             Message = message;
             this.Path = System.IO.Path.Combine(path, FileName);
             ValidatePath();
+        }
+
+        public Log()
+        {
         }
 
         public void ValidatePath()
@@ -77,6 +81,14 @@ namespace MqttCore.Core
             foreach (string file in files)
                 using (StreamReader reader = new StreamReader(file))
                     yield return reader.ReadToEnd();
+        }
+
+        public static async void LogError(string message, string path)
+        {
+            Log lg = new Log();
+            lg.Path = System.IO.Path.Combine(path, $"Error_{DateTime.Now.ToString().Replace("/", "-").Replace(" ", "_")}.txt");
+            lg.Message = message;
+            await lg.SaveAsync();
         }
     }
 }

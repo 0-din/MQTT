@@ -64,3 +64,9 @@ E:\Source\MQTT\Broker\obj\Debug\Broker.csproj.CoreCompileInputs.cache
 E:\Source\MQTT\Broker\obj\Debug\Broker.csproj.CopyComplete
 E:\Source\MQTT\Broker\obj\Debug\Broker.exe
 E:\Source\MQTT\Broker\obj\Debug\Broker.pdb
+C:\GitHub\MQTT\Broker\bin\Debug\Stimulsoft.Report.pdb
+C:\GitHub\MQTT\Broker\bin\Debug\Stimulsoft.Report.xml
+C:\GitHub\MQTT\Broker\bin\Debug\Stimulsoft.Data.pdb
+C:\GitHub\MQTT\Broker\bin\Debug\Stimulsoft.Data.xml
+C:\GitHub\MQTT\Broker\bin\Debug\Stimulsoft.Base.pdb
+C:\GitHub\MQTT\Broker\bin\Debug\Stimulsoft.Base.xml

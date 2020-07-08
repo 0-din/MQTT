@@ -14,16 +14,11 @@ namespace MqttCore.Report
         {
             get
             {
-                return ""; //$@"{HttpRuntime.AppDomainAppPath}\{StiElement.FilePath}\{StiElement.FileName}";
+                return "Broker.mrt";
             }
         }
 
         public string Name
-        {
-            get;
-        }
-
-        private StimulSoftElement StiElement
         {
             get;
         }
@@ -37,8 +32,8 @@ namespace MqttCore.Report
         public StimulsoftGenerator(string name)
         {
             Name = name;
-            StiElement = StimulSoftSetting.Instance[name];
-            Stimulsoft.Base.StiLicense.Key = StiElement.Licence;
+            //StiElement = StimulSoftSetting.Instance[name];
+            //Stimulsoft.Base.StiLicense.Key = StiElement.Licence;
             Report = new StiReport();
         }
 
@@ -61,7 +56,7 @@ namespace MqttCore.Report
         public void LoadReport()
         {
             if (!System.IO.File.Exists(Path))
-                throw new Exception($"Couldn't find {StiElement.FileName}.");
+                throw new Exception($"Couldn't find {Name}.");
 
             using (FileStream fs = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
