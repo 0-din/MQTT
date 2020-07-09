@@ -31,7 +31,7 @@ namespace MqttCore.Core
 
         private string FileName
         {
-            get => $"{Publisher.Name}_{DateTime.Now.ToString().Replace("/","-").Replace(" ", "_")}.txt";
+            get => $"{Publisher.Name}_{DateTime.Now.ToString().Replace("/","").Replace(":", "")}.txt";
         }
 
         private DateTime LogTime
@@ -44,7 +44,7 @@ namespace MqttCore.Core
             Publisher = publisher;
             Message = message;
             this.Path = System.IO.Path.Combine(path, FileName);
-            ValidatePath();
+            //ValidatePath();
         }
 
         public Log()
