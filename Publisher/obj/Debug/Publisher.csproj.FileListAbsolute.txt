@@ -48,3 +48,5 @@ E:\Source\MQTT\Publisher\obj\Debug\Publisher.exe
 E:\Source\MQTT\Publisher\obj\Debug\Publisher.pdb
 C:\GitHub\MQTT\Publisher\bin\Debug\Newtonsoft.Json.dll
 C:\GitHub\MQTT\Publisher\bin\Debug\Newtonsoft.Json.xml
+E:\Source\MQTT\Publisher\bin\Debug\Newtonsoft.Json.dll
+E:\Source\MQTT\Publisher\bin\Debug\Newtonsoft.Json.xml

@@ -16,7 +16,7 @@ namespace MqttCore.Report.Type
 
         public string IP { get; set; }
 
-        public DateTime Time { get; set; }
+        public int Time { get; set; }
 
         public object Value { get; set; }
 
@@ -25,11 +25,11 @@ namespace MqttCore.Report.Type
             this.Type = json.Children().Where(p => p.Path.Equals("type")).FirstOrDefault().First().ToString();
             this.Name = json.Children().Where(p => p.Path.Equals("name")).FirstOrDefault().First().ToString();
             this.IP = json.Children().Where(p => p.Path.Equals("ip")).FirstOrDefault().First().ToString();
-            this.Time = DateTime.Parse( json.Children().Where(p => p.Path.Equals("time")).FirstOrDefault().First().ToString());
+            this.Time = int.Parse( json.Children().Where(p => p.Path.Equals("time")).FirstOrDefault().First().ToString());
             this.Value = json.Children().Where(p => p.Path.Equals("value")).FirstOrDefault().First().ToString();
         }
 
-        public Temprature(string name , string ip, DateTime time, string value)
+        public Temprature(string name , string ip, int time, string value)
         {
             Name = name;
             IP = ip;

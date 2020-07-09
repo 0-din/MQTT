@@ -23,6 +23,10 @@ using MqttCore.Core;
 using MqttCore.Report.Type;
 using System.CodeDom;
 using System.IO;
+using LiveCharts.WinForms;
+using LiveCharts;
+using LiveCharts.Wpf;
+using LiveCharts.Defaults;
 
 namespace Broker
 {
@@ -91,6 +95,10 @@ namespace Broker
 
         private void BrokerWindow_Load(object sender, EventArgs e)
         {
+
+           
+
+
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -107,9 +115,58 @@ namespace Broker
                 }
             }
 
-            businessObjects.Add("Data", tmps);
-            MemoryStream ms = CreateChart(businessObjects);
-            imgChart.Image = Image.FromStream(ms);
+            ShowOnChart<IData>(tmps);
+
+            //businessObjects.Add("Data", tmps);
+            //MemoryStream ms = CreateChart(businessObjects);
+
+
+        }
+
+        private void ShowOnChart<T>(List<Temprature> data) where T : IData
+        {
+            List<ObservablePoint> values = new List<ObservablePoint>();
+
+            foreach (var d in data)
+            {
+                values.Add(new ObservablePoint(double.Parse(d.Time.ToString()), double.Parse(d.Value.ToString())));
+            }
+
+            cartesianChart1.Series = new SeriesCollection()
+            {
+                new LineSeries
+                {
+                    Values = new ChartValues<ObservablePoint>(values)
+                }
+            };
+
+            //cartesianChart1.Series = new LiveCharts.SeriesCollection()
+            //{
+            //    new LineSeries
+            //    {
+            //        Values = new ChartValues<ObservablePoint>
+            //        {
+            //            new ObservablePoint(0,10),
+            //            new ObservablePoint(4,7),
+            //            new ObservablePoint(5,3),
+            //            new ObservablePoint(7,6),
+            //            new ObservablePoint(10,8),
+            //        },
+            //        PointGeometrySize = 15
+            //    },
+            //    new LineSeries
+            //    {
+            //        Values = new ChartValues<ObservablePoint>
+            //        {
+            //            new ObservablePoint(0,2),
+            //            new ObservablePoint(2,5),
+            //            new ObservablePoint(3,6),
+            //            new ObservablePoint(6,8),
+            //            new ObservablePoint(10,5),
+            //        },
+            //        PointGeometrySize = 15
+            //    },
+            //};
         }
 
         private MemoryStream CreateChart(Dictionary<string, object> businessObjects)

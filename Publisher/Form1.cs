@@ -41,7 +41,7 @@ namespace Publisher
                     TcpClient client = new TcpClient(server, port);
                     NetworkStream stream = client.GetStream();
 
-                    using (StreamReader sr = new StreamReader(@"c:\json1.json"))
+                    using (StreamReader sr = new StreamReader(@"json1.json"))
                     {
                         Byte[] data = System.Text.Encoding.ASCII.GetBytes(sr.ReadToEnd());
                         stream.Write(data, 0, data.Length);

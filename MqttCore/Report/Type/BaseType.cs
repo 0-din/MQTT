@@ -13,7 +13,7 @@ namespace MqttCore.Report.Type
 
         string IP { get; set; }
 
-        DateTime Time { get; set; }
+        int Time { get; set; }
 
         object Value { get; set; }
     }

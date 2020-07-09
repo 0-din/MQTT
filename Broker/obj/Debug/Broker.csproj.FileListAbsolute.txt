@@ -48,9 +48,6 @@ E:\Source\MQTT\Broker\bin\Debug\Broker.pdb
 E:\Source\MQTT\Broker\bin\Debug\MqttCore.dll
 E:\Source\MQTT\Broker\bin\Debug\Newtonsoft.Json.dll
 E:\Source\MQTT\Broker\bin\Debug\Publisher.exe
-E:\Source\MQTT\Broker\bin\Debug\Stimulsoft.Report.dll
-E:\Source\MQTT\Broker\bin\Debug\Stimulsoft.Base.dll
-E:\Source\MQTT\Broker\bin\Debug\Stimulsoft.Data.dll
 E:\Source\MQTT\Broker\bin\Debug\MqttCore.pdb
 E:\Source\MQTT\Broker\bin\Debug\Publisher.pdb
 E:\Source\MQTT\Broker\bin\Debug\Publisher.exe.config
@@ -70,3 +67,12 @@ C:\GitHub\MQTT\Broker\bin\Debug\Stimulsoft.Data.pdb
 C:\GitHub\MQTT\Broker\bin\Debug\Stimulsoft.Data.xml
 C:\GitHub\MQTT\Broker\bin\Debug\Stimulsoft.Base.pdb
 C:\GitHub\MQTT\Broker\bin\Debug\Stimulsoft.Base.xml
+E:\Source\MQTT\Broker\bin\Debug\LiveCharts.dll
+E:\Source\MQTT\Broker\bin\Debug\LiveCharts.WinForms.dll
+E:\Source\MQTT\Broker\bin\Debug\LiveCharts.Wpf.dll
+E:\Source\MQTT\Broker\bin\Debug\LiveCharts.pdb
+E:\Source\MQTT\Broker\bin\Debug\LiveCharts.xml
+E:\Source\MQTT\Broker\bin\Debug\LiveCharts.WinForms.pdb
+E:\Source\MQTT\Broker\bin\Debug\LiveCharts.WinForms.xml
+E:\Source\MQTT\Broker\bin\Debug\LiveCharts.Wpf.pdb
+E:\Source\MQTT\Broker\bin\Debug\LiveCharts.Wpf.xml

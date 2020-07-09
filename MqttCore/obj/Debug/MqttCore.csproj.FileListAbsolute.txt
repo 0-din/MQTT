@@ -21,3 +21,5 @@ E:\Source\MQTT\MqttCore\obj\Debug\MqttCore.dll
 E:\Source\MQTT\MqttCore\obj\Debug\MqttCore.pdb
 C:\GitHub\MQTT\MqttCore\bin\Debug\Newtonsoft.Json.dll
 C:\GitHub\MQTT\MqttCore\bin\Debug\Newtonsoft.Json.xml
+E:\Source\MQTT\MqttCore\bin\Debug\Newtonsoft.Json.dll
+E:\Source\MQTT\MqttCore\bin\Debug\Newtonsoft.Json.xml

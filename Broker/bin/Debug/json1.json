@@ -1,0 +1,7 @@
+{
+  "type": "temprature",
+  "Name": "RoomTemperature",
+  "Ip": "127.0.0.1",
+  "Time": "15:00",
+  "Value": 33.8
+}
