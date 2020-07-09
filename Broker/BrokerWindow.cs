@@ -95,10 +95,6 @@ namespace Broker
 
         private void BrokerWindow_Load(object sender, EventArgs e)
         {
-
-           
-
-
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -116,10 +112,6 @@ namespace Broker
             }
 
             ShowOnChart<IData>(tmps);
-
-            //businessObjects.Add("Data", tmps);
-            //MemoryStream ms = CreateChart(businessObjects);
-
 
         }
 
