@@ -44,17 +44,10 @@ namespace MqttCore.Core
             Publisher = publisher;
             Message = message;
             this.Path = System.IO.Path.Combine(path, FileName);
-            //ValidatePath();
         }
 
         public Log()
         {
-        }
-
-        public void ValidatePath()
-        {
-            if (!Directory.Exists(Path))
-                Directory.CreateDirectory(Path);
         }
 
         public async Task SaveAsync()

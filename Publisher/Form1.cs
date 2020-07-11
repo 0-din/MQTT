@@ -24,43 +24,31 @@ namespace Publisher
         {
             InitializeComponent();
             txtIP.Text = "localhost";
+            txtPort.Text = "7777";
         }
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            Connect(txtIP.Text, "this is me.");
+            Task t = Connect(txtIP.Text);
+            t.Wait();
         }
 
-        private void Connect(String server, String message)
+        private async Task Connect(String server)
         {
             try
             {
-                for (int i = 0; i < 5; i++)
+                Int32 port = int.Parse(txtPort.Text);
+                TcpClient client = new TcpClient(server, port);
+                NetworkStream stream = client.GetStream();
+
+                using (StreamReader sr = new StreamReader(@"json1.json"))
                 {
-                    Int32 port = int.Parse(txtPort.Text);
-                    TcpClient client = new TcpClient(server, port);
-                    NetworkStream stream = client.GetStream();
-
-                    using (StreamReader sr = new StreamReader(@"json1.json"))
-                    {
-                        Byte[] data = System.Text.Encoding.ASCII.GetBytes(sr.ReadToEnd());
-                        stream.Write(data, 0, data.Length);
-                        Thread.Sleep(3000);
-                    }
-
-                    //Console.WriteLine("Sent: {0}", message);
-
-                    //data = new Byte[256];
-
-                    //String responseData = String.Empty;
-
-                    //Int32 bytes = stream.Read(data, 0, data.Length);
-                    //responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-                    //Console.WriteLine("Received: {0}", responseData);
-
-                    stream.Close();
-                    client.Close();
+                    Byte[] data = System.Text.Encoding.ASCII.GetBytes(sr.ReadToEnd());
+                    await stream.WriteAsync(data, 0, data.Length);
                 }
+
+                stream.Close();
+                client.Close();
             }
             catch (ArgumentNullException e)
             {

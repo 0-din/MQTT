@@ -1,32 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MqttCore.Report;
-using MQTTCore.Broker;
 using Stimulsoft.Report;
-using Stimulsoft.Report.Components;
-using Stimulsoft.Report.Components.Table;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using MqttCore.Core;
 using MqttCore.Report.Type;
-using System.CodeDom;
 using System.IO;
-using LiveCharts.WinForms;
 using LiveCharts;
 using LiveCharts.Wpf;
 using LiveCharts.Defaults;
+using Stimulsoft.Report.Dashboard;
 
 namespace Broker
 {
@@ -90,6 +78,7 @@ namespace Broker
             while (!cancellationToken.IsCancellationRequested)
             {
                 await broker.RecieveDataAsync(cancellationToken);
+                await Search(DateTime.Now.AddDays(-1), DateTime.Now);
             }
         }
 
@@ -99,10 +88,16 @@ namespace Broker
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            Task t = Search(dtFrom.Value, dtTo.Value);
+            t.Start();
+        }
+
+        private async Task Search(DateTime from, DateTime to)
+        {
             Dictionary<string, object> businessObjects = new Dictionary<string, object>();
             List<Temprature> tmps = new List<Temprature>();
 
-            foreach (string lg in MqttCore.Core.Log.GetLogs(dtFrom.Value, dtTo.Value, logPath))
+            foreach (string lg in MqttCore.Core.Log.GetLogs(from, to, logPath))
             {
                 JObject obj = ParseJson(lg);
                 if (obj != null)
@@ -111,8 +106,11 @@ namespace Broker
                 }
             }
 
-            ShowOnChart<IData>(tmps);
-
+            Task t = Task.Run(() =>
+            {
+                ShowOnChart<IData>(tmps);
+            });
+            await t;
         }
 
         private void ShowOnChart<T>(List<Temprature> data) where T : IData
@@ -131,34 +129,6 @@ namespace Broker
                     Values = new ChartValues<ObservablePoint>(values)
                 }
             };
-
-            //cartesianChart1.Series = new LiveCharts.SeriesCollection()
-            //{
-            //    new LineSeries
-            //    {
-            //        Values = new ChartValues<ObservablePoint>
-            //        {
-            //            new ObservablePoint(0,10),
-            //            new ObservablePoint(4,7),
-            //            new ObservablePoint(5,3),
-            //            new ObservablePoint(7,6),
-            //            new ObservablePoint(10,8),
-            //        },
-            //        PointGeometrySize = 15
-            //    },
-            //    new LineSeries
-            //    {
-            //        Values = new ChartValues<ObservablePoint>
-            //        {
-            //            new ObservablePoint(0,2),
-            //            new ObservablePoint(2,5),
-            //            new ObservablePoint(3,6),
-            //            new ObservablePoint(6,8),
-            //            new ObservablePoint(10,5),
-            //        },
-            //        PointGeometrySize = 15
-            //    },
-            //};
         }
 
         private MemoryStream CreateChart(Dictionary<string, object> businessObjects)
